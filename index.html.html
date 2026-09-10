@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reel Drop - Fast Instagram Video Downloader</title>
+    <!-- Primary Meta Tags -->
+<meta name="description" content="Download Instagram Reels, videos, and photos instantly in high quality (HD/4K). Fast, free, and easy to use with ReelDrop — just paste the link and download!">
+<meta name="keywords" content="Instagram reel downloader, download insta reels, save instagram video, instagram reel save online, reel downloader hd, ReelDrop, free instagram video saver">
+<meta name="author" content="ReelDrop">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Canonical URL (अपनी वेबसाइट का लाइव URL डालें) -->
+<link rel="canonical" href="https://yourwebsite.com/">
+
+<!-- Open Graph / Facebook / WhatsApp (Link preview के लिए) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourwebsite.com/">
+<meta property="og:title" content="ReelDrop - Fast Instagram Video Downloader">
+<meta property="og:description" content="Download Instagram Reels and videos in full HD with just one click. Free, fast, and no watermark!">
+<meta property="og:image" content="https://yourwebsite.com/preview-banner.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://yourwebsite.com/">
+<meta name="twitter:title" content="ReelDrop - Fast Instagram Video Downloader">
+<meta name="twitter:description" content="Download Instagram Reels and videos in full HD with just one click. Free, fast, and no watermark!">
+<meta name="twitter:image" content="https://yourwebsite.com/preview-banner.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Header Navigation-->
+    <header class="navbar">
+        <div class="logo">Nikhil <span>Labs</span></div>
+
+        <nav>
+            <!--MediaShrink Project Link-->
+            <a href=" https://nikhildev161011-tech.github.io/Media-Shrink/" target="_blank" class="badge-link">
+                Try MediaShrink (Photo Compressor)
+            </a>
+        </nav>
+    </header>
+
+
+    <!--Main Downloader Section-->
+    <main class="container">
+        <!--1st Section-->
+
+        <section class="hero-section">
+            <h1>Instgram Reel Downloader</h1>
+            <p>Past the link below to download high-quality videos instantly.</p>
+
+            <!--Input and Download Box-->
+            <div class="input-card">
+                <input type="url" id="videoUrl" placeholder="Past instagram reel or post link here..." required>
+                <button id="downloadBtn" type="button">Fetch Video</button>
+            </div>
+
+            <!--Loading Spinner-->
+            <div class="loading-box hidden" id="loading">
+                 <div class="spinner"></div>
+            <p>Fetching your video, please wait...</p>
+            </div>
+
+            <!--Error Message Box-->
+            <div class="error-box hidden" id="errorMsg"></div> 
+        </section>
+
+         <!--2nd Section-->
+
+        <!--Video Result-->
+        <section id="resultCard" class="result-card hidden">
+            <div class="thumbnail-wrapper">
+                <img id="videothumb" src="" alt="">
+            </div>
+
+            <!--Result Action-->
+            <div class="result-actions">
+                <h3 id="videoTitle">Instagram video</h3>
+                <a id="saveBtn" href="#" target="_blank" class="btn-download" download>
+                    ⬇️ Dwonload MP4
+                </a>
+            </div>
+        </section>
+
+        <!--Other Projects-->
+       <section class="other-projects">
+            <div class="promo-box">
+                <div class="promo-info">
+                    <span class="tag">Featured Tool</span>
+                    <h3>MediaShrink — Smart Image Compressor</h3>
+                    <p>Compress bulk images without losing quality right in your browser.</p>
+                </div>
+                <a href=" https://nikhildev161011-tech.github.io/Media-Shrink/" target="_blank" class="promo-btn">
+                    Open MediaShrink ↗
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Designed & Developed by <strong>Nikhil Gupta</strong></p>
+
+            <!--Social Media-->
+            <div class="social-links">
+                <!-- Instagram Logo -->
+                <a href="https://instagram.com/nikhildev161011" target="_blank" aria-label="Instagram" class="social-btn insta">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <span>Instagram</span>
+                </a>
+
+                <!-- LinkedIn Logo -->
+                <a href="https://linkedin.com/in/nikhil-gupta-64697b3b6" target="_blank" aria-label="LinkedIn" class="social-btn linkedin">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                    <span>LinkedIn</span>
+                </a>
+
+                <!-- Email Logo -->
+                <a href="mailto:nikhil.dev161011@gmail.com" aria-label="Email" class="social-btn mail">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>Email</span>
+                </a>
+            </div>
+
+        <!--Copyright Notice-->
+        <p class="copyright">
+            &copy; 2026 Nikhil Labs. All rights reserved.
+        </p>
+
+        <span class="disclaimer">Not affilliated with Instagram or Meta.</span>
+        </div>
+    </footer>
+
+    <!--JavaScript link-->
+    <script src="script.js"></script>  
+</body>
+</html>
