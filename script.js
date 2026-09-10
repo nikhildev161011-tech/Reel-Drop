@@ -22,7 +22,7 @@ downloadBtn.addEventListener("click", async () => {
   downloadBtn.disabled = true;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/download?url=${encodeURIComponent(url)}`);
+    const res = await fetch(`https://reel-drop.onrender.com/api/download?url=${encodeURIComponent(url)}`);
     const data = await res.json();
 
     if (!data.success) {
