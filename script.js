@@ -38,7 +38,7 @@ downloadBtn.addEventListener("click", async () => {
 
     // Direct Download route
     if (saveBtn && data.downloadLink) {
-      saveBtn.href = `http://localhost:5000/api/download-video?videoUrl=${encodeURIComponent(data.downloadLink)}`;
+      saveBtn.href = `https://reel-drop.onrender.com/api/download-video?videoUrl=${encodeURIComponent(data.downloadLink)}`;
       saveBtn.removeAttribute("target");
       saveBtn.textContent = "Download Video";
     }
