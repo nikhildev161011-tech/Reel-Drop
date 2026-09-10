@@ -7,102 +7,40 @@ const resultCard = document.getElementById("resultCard");
 const videoThumb = document.getElementById("videoThumb");
 const saveBtn = document.getElementById("saveBtn");
 
-// RapidAPI Credentials (KK Creation)
-const API_KEY = "d0e970ffd0mshf995a8f21c0cc3fp1792f4jsnbe2cf2a7d2ac";
-const API_HOST = "instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com";
-
-// Helper function: kisi bhi object/array se string URL nikalne ke liye
-function extractUrl(val) {
-  if (!val) return null;
-  if (typeof val === "string" && (val.startsWith("http://") || val.startsWith("https://"))) {
-    return val;
-  }
-  if (typeof val === "object") {
-    if (Array.isArray(val) && val.length > 0) {
-      return extractUrl(val[0]);
-    }
-    // Object ke andar url, download_url, video, link dhoondho
-    return (
-      extractUrl(val.url) ||
-      extractUrl(val.download_url) ||
-      extractUrl(val.video) ||
-      extractUrl(val.video_url) ||
-      extractUrl(val.link) ||
-      extractUrl(val.media) ||
-      null
-    );
-  }
-  return null;
-}
-
-// Click Event
 downloadBtn.addEventListener("click", async () => {
   const url = videoUrlInput.value.trim();
-
-  hideError();
-  if (resultCard) resultCard.classList.add("hidden");
 
   if (!url) {
     showError("Please paste an Instagram link first!");
     return;
   }
 
-  // Loading State
+  // Reset UI
+  if (errorMsg) errorMsg.classList.add("hidden");
+  if (resultCard) resultCard.classList.add("hidden");
   if (loadingBox) loadingBox.classList.remove("hidden");
   downloadBtn.disabled = true;
 
   try {
-    const endpoint = `https://${API_HOST}/convert?url=${encodeURIComponent(url)}`;
+    const res = await fetch(`http://localhost:5000/api/download?url=${encodeURIComponent(url)}`);
+    const data = await res.json();
 
-    const response = await fetch(endpoint, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-key": API_KEY,
-        "x-rapidapi-host": API_HOST
-      }
-    });
-
-    const data = await response.json();
-    console.log("RapidAPI Full Response:", data);
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to fetch video from API");
+    if (!data.success) {
+      throw new Error(data.message || "Could not fetch media.");
     }
 
-    // Saari sambhav keys se URL nikalna (Object recursion ke saath)
-    let downloadLink = 
-      extractUrl(data.media) ||
-      extractUrl(data.url) ||
-      extractUrl(data.download_url) ||
-      extractUrl(data.video_url) ||
-      extractUrl(data.result) ||
-      extractUrl(data.data) ||
-      extractUrl(data);
-
-    let thumbnailLink = 
-      extractUrl(data.thumbnail) ||
-      extractUrl(data.thumbnail_url) ||
-      extractUrl(data.thumb) ||
-      (data.result && extractUrl(data.result[0]?.thumbnail)) ||
-      (data.data && extractUrl(data.data?.thumbnail)) ||
-      "";
-
-    if (!downloadLink) {
-      throw new Error("Could not extract video link. Please check Console log.");
-    }
-
-    // UI Updates
-    if (thumbnailLink && videoThumb) {
-      videoThumb.src = thumbnailLink;
+    // Thumbnail bypass using global CDN proxy
+    if (videoThumb && data.thumbnailLink) {
+      videoThumb.referrerPolicy = "no-referrer";
+      videoThumb.src = `https://wsrv.nl/?url=${encodeURIComponent(data.thumbnailLink)}`;
       videoThumb.classList.remove("hidden");
     }
 
-    if (saveBtn) {
-      saveBtn.href = downloadLink;
-      saveBtn.removeAttribute("download");
-      saveBtn.target = "_blank";
-      saveBtn.rel = "noopener noreferrer";
-      saveBtn.textContent = "Open / Download Video";
+    // Direct Download route
+    if (saveBtn && data.downloadLink) {
+      saveBtn.href = `http://localhost:5000/api/download-video?videoUrl=${encodeURIComponent(data.downloadLink)}`;
+      saveBtn.removeAttribute("target");
+      saveBtn.textContent = "Download Video";
     }
 
     if (resultCard) {
@@ -110,25 +48,17 @@ downloadBtn.addEventListener("click", async () => {
     }
 
   } catch (err) {
-    console.error("Fetch Error:", err);
-    showError(err.message || "Kuch gadbad hui! Link aur API response check karein.");
+    console.error("Frontend Error:", err);
+    showError(err.message || "Failed to download! Make sure backend is running.");
   } finally {
     if (loadingBox) loadingBox.classList.add("hidden");
     downloadBtn.disabled = false;
   }
 });
 
-// Helper Functions
-function showError(message) {
+function showError(msg) {
   if (errorMsg) {
-    errorMsg.textContent = message;
+    errorMsg.textContent = msg;
     errorMsg.classList.remove("hidden");
-  }
-}
-
-function hideError() {
-  if (errorMsg) {
-    errorMsg.classList.add("hidden");
-    errorMsg.textContent = "";
   }
 }
